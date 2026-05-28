@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
+const path = require('path');
+
 /**
  * Load environment variables first, before any other modules
  */
-require('dotenv').config();
+require('dotenv').config({ path: path.join(__dirname, '..', '.env') });
 
 /**
  * Module dependencies.
@@ -48,7 +50,15 @@ sequelize
     server.on('listening', onListening);
   })
   .catch((err) => {
-    console.error('❌ Erro ao conectar/sincronizar banco:', err.message);
+    const detail =
+      err?.message ||
+      err?.parent?.message ||
+      err?.original?.message ||
+      String(err);
+    console.error('❌ Erro ao conectar/sincronizar banco:', detail);
+    if (!process.env.DATABASE_URL && !process.env.DB_HOST) {
+      console.error('   Defina DATABASE_URL ou DB_HOST/DB_USER/DB_PASSWORD no .env (local) ou no Render → Environment.');
+    }
     process.exit(1);
   });
 
