@@ -16,6 +16,7 @@ const debug = require('debug')('projeto-backend:server');
 const http = require('http');
 const { sequelize } = require('../config/database');
 const { ensureDefaultAdmin } = require('../scripts/ensure-admin');
+const { getPublicUrl } = require('../config/publicUrl');
 
 /**
  * Get port from environment and store in Express.
@@ -43,7 +44,7 @@ sequelize
     server = http.createServer(app);
 
     server.listen(port, () => {
-      console.log(`🚀 Server running on http://localhost:${port}\n`);
+      console.log(`🚀 Server running on ${getPublicUrl()}\n`);
     });
 
     server.on('error', onError);

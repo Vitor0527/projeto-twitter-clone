@@ -1,3 +1,6 @@
+require('dotenv').config();
+const { getPublicUrl } = require('./config/publicUrl');
+
 const swaggerAutogen = require('swagger-autogen')({ openapi: '3.0.0' });
 
 const outputFile = './swagger.json';
@@ -9,7 +12,7 @@ const doc = {
     description: 'API REST do projeto (Express + Sequelize).',
   },
   servers: [
-    { url: 'http://localhost:3001', description: 'Local' },
+    { url: getPublicUrl(), description: 'API' },
   ],
   components: {
     securitySchemes: {

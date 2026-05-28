@@ -197,7 +197,7 @@ export default function Profile() {
         err.message ||
         err.response?.data?.error ||
         (err.message === 'Network Error'
-          ? 'Servidor indisponivel. Confirme que o backend esta a correr na porta 3001.'
+          ? 'Servidor indisponivel. Confirme que a API esta acessivel.'
           : 'Nao foi possivel guardar o perfil.');
       setError(message);
     }

@@ -4,6 +4,9 @@
   "description": "Backend API for Twitter-like application",
   "main": "app.js",
   "scripts": {
+    "postinstall": "node scripts/render-build-frontend.js",
+    "build:frontend": "npm install --prefix ../frontend && npm run build --prefix ../frontend",
+    "render-build": "npm run build:frontend && npm install",
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www",
     "swagger": "node swagger.js",

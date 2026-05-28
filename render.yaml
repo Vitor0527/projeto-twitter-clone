@@ -4,13 +4,14 @@ services:
     env: node
     rootDir: backend
     plan: free
-    buildCommand: npm install
+    buildCommand: npm run render-build
     startCommand: npm run start
     healthCheckPath: /api/health
     envVars:
       - key: NODE_ENV
         value: production
-      # Aiven / Postgres (recomendado no Render):
+      - key: PUBLIC_URL
+        sync: false
       - key: DATABASE_URL
         sync: false
       - key: DB_SSL
@@ -19,14 +20,6 @@ services:
         sync: false
       - key: JWT_EXPIRATION
         value: 24h
-
-  - type: web
-    name: projeto-frontend
-    env: static
-    rootDir: frontend
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    envVars:
       - key: VITE_API_URL
-        sync: false
+        value: /api
 
